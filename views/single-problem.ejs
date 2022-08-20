@@ -118,7 +118,6 @@
     <script>
         $("#codeEditorForm").click(function (event) {
             var code = $('#codeEditorTextarea').val();
-            console.log('x', code);
             $.ajax({
                 url: '/run',
                 method: 'POST',

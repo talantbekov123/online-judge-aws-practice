@@ -15,11 +15,7 @@ module.exports = (app) => {
 	});
 
 	router.post('/run', async (req, res) => {
-		console.log('xxxxx');
-		console.log(req.body);
 		const { language = 'js', code } = req.body;
-		console.log(code);
-
 		if (code === undefined) {
 			return res
 				.status(400)
@@ -31,8 +27,7 @@ module.exports = (app) => {
 			const fn = require(`../source_codes/${filepath}`);
 			res.status(200).send(fn());
 		} catch (err) {
-			console.log(err);
-			res.status(201).json({ message: err.stderr });
+			res.status(500).json({ message: err });
 		}
 	});
 
