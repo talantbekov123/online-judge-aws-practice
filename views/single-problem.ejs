@@ -62,30 +62,30 @@
                                     id="exampleFormControlTextarea1" rows="15"></textarea>
                             </div>
                             <div class="tabs tabs-folder">
-                                <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                                <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home3"
-                                            role="tab" aria-controls="home" aria-selected="true">Test cases</a>
+                                        <a class="nav-link active" id="inputTab" data-toggle="tab" href="#inputBox"
+                                            role="tab" aria-controls="home" aria-selected="true">Input</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile3"
-                                            role="tab" aria-controls="profile" aria-selected="false">Run Code Result
+                                        <a class="nav-link" id="outputTab" data-toggle="tab" href="#outputBox"
+                                            role="tab" aria-controls="profile" aria-selected="false">Output
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="myTabContent3" style="padding: 15px;">
-                                    <div class="tab-pane fade active show" id="home3" role="tabpanel"
+                                <div class="tab-content" style="padding: 15px;">
+                                    <div class="tab-pane fade active show" id="inputBox" role="tabpanel"
                                         aria-labelledby="home-tab">
                                         <textarea style="resize: none;" class="form-control" id="codeEditorInput"
                                             rows="5"></textarea>
                                     </div>
-                                    <div class="tab-pane fade" id="profile3" role="tabpanel"
+                                    <div class="tab-pane fade" id="outputBox" role="tabpanel"
                                         aria-labelledby="profile-tab">
                                         <textarea style="resize: none;" class="form-control" id="codeEditorOutput"
                                             rows="5"></textarea>
                                     </div>
                                 </div>
-                                <button style="margin-top: 15px; padding: 10px;" type="button"
+                                <button id="codeEditorButton" style="margin-top: 15px; padding: 10px;" type="button"
                                     class="btn btn-shadow">run code</button>
                             </div>
                         </form>
@@ -116,17 +116,26 @@
     <script src="../js/functions.js"></script>
 
     <script>
-        $("#codeEditorForm").click(function (event) {
-            var code = $('#codeEditorTextarea').val();
+        $("#codeEditorButton").click(function (event) {
+            const code = $('#codeEditorTextarea').val();
+            const input = $('#codeEditorInput').val().split('\n');
+
+            // todo: outputTab active after run code
+            $("#inputTab").removeClass("active")
+            $("#outputTab").addClass("active show")
+            $("#inputBox").removeClass("active")
+            $("#outputBox").addClass("active show")
+
             $.ajax({
                 url: '/run',
                 method: 'POST',
                 data: JSON.stringify({
                     code,
+                    input,
                 }),
                 contentType: "application/json; charset=utf-8",
                 success: function (data, textStatus, jQxhr) {
-                    document.getElementById('codeEditorOutput').innerHTML = data;
+                    document.getElementById('codeEditorOutput').innerHTML = data.responce;
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     console.log(errorThrown);

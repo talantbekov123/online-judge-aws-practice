@@ -15,7 +15,7 @@ module.exports = (app) => {
 	});
 
 	router.post('/run', async (req, res) => {
-		const { language = 'js', code } = req.body;
+		const { language = 'js', code, input = [] } = req.body;
 		if (code === undefined) {
 			return res
 				.status(400)
@@ -25,9 +25,10 @@ module.exports = (app) => {
 		try {
 			const filepath = await generateFile(language, code, 'someName');
 			const fn = require(`../source_codes/${filepath}`);
-			res.status(200).send(fn());
+			const responce = fn(...input);
+			res.json({ responce });
 		} catch (err) {
-			res.status(500).json({ message: err });
+			res.status(500).send({ responce: err });
 		}
 	});
 
