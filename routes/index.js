@@ -1,9 +1,9 @@
+/* eslint-disable import/no-dynamic-require */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-destructuring */
 const express = require('express');
 const router = express.Router();
 const { generateFile } = require('../helpers/generateFile');
-const { execute } = require('../helpers/execute');
 
 module.exports = (app) => {
 	router.get('/problems', async (req, res) => {
@@ -15,7 +15,10 @@ module.exports = (app) => {
 	});
 
 	router.post('/run', async (req, res) => {
+		console.log('xxxxx');
+		console.log(req.body);
 		const { language = 'js', code } = req.body;
+		console.log(code);
 
 		if (code === undefined) {
 			return res
@@ -23,11 +26,12 @@ module.exports = (app) => {
 				.json({ success: false, error: 'Empty code body!' });
 		}
 		// need to generate a file with content from the request
-		const filepath = await generateFile(language, code);
 		try {
-			const output = await execute(filepath);
-			res.status(201).json({ message: output });
+			const filepath = await generateFile(language, code, 'someName');
+			const fn = require(`../source_codes/${filepath}`);
+			res.status(200).send(fn());
 		} catch (err) {
+			console.log(err);
 			res.status(201).json({ message: err.stderr });
 		}
 	});

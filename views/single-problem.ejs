@@ -55,10 +55,40 @@
                             voluptatem.</p>
                     </div>
                     <div class="col-lg-6">
-                        <h3>Code editor</h3>
-                        <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
-                        </div>
+                        <form method="POST" action="/run" id="codeEditorForm">
+                            <h3>Code editor</h3>
+                            <div class="form-group">
+                                <textarea id="codeEditorTextarea" name="code" class="form-control"
+                                    id="exampleFormControlTextarea1" rows="15"></textarea>
+                            </div>
+                            <div class="tabs tabs-folder">
+                                <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home3"
+                                            role="tab" aria-controls="home" aria-selected="true">Test cases</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile3"
+                                            role="tab" aria-controls="profile" aria-selected="false">Run Code Result
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent3" style="padding: 15px;">
+                                    <div class="tab-pane fade active show" id="home3" role="tabpanel"
+                                        aria-labelledby="home-tab">
+                                        <textarea style="resize: none;" class="form-control" id="codeEditorInput"
+                                            rows="5"></textarea>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile3" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        <textarea style="resize: none;" class="form-control" id="codeEditorOutput"
+                                            rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <button style="margin-top: 15px; padding: 10px;" type="button"
+                                    class="btn btn-shadow">run code</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -84,6 +114,28 @@
     <script src="../js/plugins.js"></script>
 
     <script src="../js/functions.js"></script>
+
+    <script>
+        $("#codeEditorForm").click(function (event) {
+            var code = $('#codeEditorTextarea').val();
+            console.log('x', code);
+            $.ajax({
+                url: '/run',
+                method: 'POST',
+                data: JSON.stringify({
+                    code,
+                }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data, textStatus, jQxhr) {
+                    document.getElementById('codeEditorOutput').innerHTML = data;
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+            event.preventDefault();
+        });
+    </script>
 </body>
 
 </html>
