@@ -5,9 +5,9 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (app) => {
-	router.get('/', async (req, res) => {
-		res.send('OK');
-	});
+  router.get('/', async (req, res) => {
+    res.send('OK');
+  });
 
-	app.use('/problems', router);
+  app.use('/problems', router);
 };

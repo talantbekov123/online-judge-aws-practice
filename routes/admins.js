@@ -5,13 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (app) => {
-	router.get('/problems', async (req, res) => {
-		res.render('./admins/problems');
-	});
+  router.get('/problems', async (req, res) => {
+    res.render('./admins/problems');
+  });
 
-	router.get('/testcases', async (req, res) => {
-		res.render('./admins/testcases');
-	});
+  router.get('/testcases', async (req, res) => {
+    res.render('./admins/testcases');
+  });
 
-	app.use('/admins', router);
+  app.use('/admins', router);
 };
