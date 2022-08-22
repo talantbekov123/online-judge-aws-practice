@@ -14,6 +14,15 @@ const SubmissionSchema = new Schema(
     },
     testCaseResult: {
       type: [Object]
+    },
+    /*
+      0 - not submited
+      1 - accepted
+      2 - failed
+    */
+    verdict: {
+      type: Number,
+      default: 0
     }
   },
   {

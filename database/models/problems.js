@@ -15,6 +15,15 @@ const ProblemSchema = new Schema(
     difficulty: {
       type: String,
       required: true
+    },
+    /*
+      0 - not submited
+      1 - accepted
+      2 - failed
+    */
+    verdict: {
+      type: Number,
+      default: 0
     }
   },
   {

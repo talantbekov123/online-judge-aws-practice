@@ -37,8 +37,6 @@ module.exports = (app, db) => {
     const testcases = await db.Testcase.find({ problemId: req.params._id });
     const submissions = await db.Submission.find({ problemId: req.params._id });
 
-    console.log(submissions);
-
     res.render('single-problem', { problem, testcases, submissions });
   });
 

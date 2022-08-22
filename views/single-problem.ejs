@@ -51,14 +51,20 @@
                         <hr/>
                         <h3>Submissions</h3>
                         <% for(let i = 0; i < submissions.length; i++) { %>
-                            <a href="#"><%= submissions[i]._id %></a> (verdict)
+                            <a href="/submissions/<%= submissions[i]._id %>"><%= submissions[i]._id %></a>
+                            <% if(submissions[i].verdict == 2) { %>
+                                <span style="color: red;">(failed)</span>
+                            <% } else if(submissions[i].verdict == 1) { %>
+                                <span style="color: green;">(accepted)</span>
+                            <% } %>
+                            <br>
                         <% } %>
 
                     </div>
                     <div class="col-lg-6">
                         <form method="POST" action="/run" id="codeEditorForm">
                             <h3>Code editor</h3>
-                            <input type="hidden" value="<%= problem._id %>" name="problemId">
+                            <input id="problemId" type="hidden" value="<%= problem._id %>" name="problemId">
                             <div class="form-group">
                                 <textarea id="codeEditorTextarea" name="code" class="form-control"
                                     id="exampleFormControlTextarea1" rows="15"></textarea>
@@ -116,6 +122,7 @@
         $("#codeEditorButton").click(function (event) {
             const code = $('#codeEditorTextarea').val();
             const input = $('#codeEditorInput').val().split('\n');
+            const problemId = $('#problemId').val();
 
             // todo: outputTab active after run code
             $("#inputTab").removeClass("active")
@@ -129,10 +136,11 @@
                 data: JSON.stringify({
                     code,
                     input,
+                    problemId
                 }),
                 contentType: "application/json; charset=utf-8",
                 success: function (data, textStatus, jQxhr) {
-                    document.getElementById('codeEditorOutput').innerHTML = data.responce;
+                    document.getElementById('codeEditorOutput').innerHTML = data.output;
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     console.log(errorThrown);
