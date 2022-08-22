@@ -54,11 +54,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Two Sum</td>
-                                    <td>Easy</td>
-                                </tr>
+                                <% for(let i = 0; i < problems.length; i++) { %>
+                                    <tr>
+                                        <th scope="row"><%= i + 1%></th>
+                                        <td><a href="/problems/<%= problems[i]._id %>">
+                                            <%= problems[i].title %>
+                                        </td>
+                                        <td><%= problems[i].difficulty %></td>
+                                    </tr>
+                                <% } %>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Palindrome Number</td>

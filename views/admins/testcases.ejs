@@ -26,21 +26,70 @@
             <div class="text-center text-medium m-b-0">
                 ONLINE JUDGE
             </div>
-            
+
         </section>
 
         <%- include('../components/navigation.ejs', {path: '../' }); %>
 
-        <header id="header">
-            <div class="header-inner">
-                <div class="container">
-                    <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines"></span></a> </div>
+        <section id="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="content col-lg-9">
+                        <form action="/testcases" method="POST">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Sample input</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Sample input" type="text" name="inputArgs">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Sample output</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Sample output" type="text"
+                                        name="expectedOutput">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Problem name</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="problemId">
+                                        <% for(let i = 0; i < problems.length; i++) { %>
+                                            <option value="<%= problems[i]._id %>"><%= problems[i].title %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <br>
+                            
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn">Create testcase</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar col-lg-3">
+                        <div class="sidebar-menu">
+                            <ul>
+                                <label>testcases list</label>
+                                <% for(let i = 0; i < testcases.length; i++) { %>
+                                <li>
+                                    <a style="float: left; padding-right: 10px;"><%= testcases[i]._id %> (<%= testcases[i].problemId.title %>)</a>
+                                    <form method="POST" action="/testcases/<%=testcases[i]._id%>?_method=DELETE">
+                                        <button class="btn btn-xs" type="submit">delete</button>
+                                    </form>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
+        </section>
 
 
-     
 
         <footer id="footer">
             <div class="footer-content p-t-10">
@@ -57,6 +106,8 @@
 
     <a id="scrollTop" class="scroll-to" href="body.html"><i class="icon-chevron-up"></i><i
             class="icon-chevron-up"></i></a>
+
+
 </body>
 
 </html>

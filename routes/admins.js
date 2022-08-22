@@ -4,13 +4,17 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (app) => {
+module.exports = (app, db) => {
   router.get('/problems', async (req, res) => {
-    res.render('./admins/problems');
+    const problems = await db.Problem.find({});
+    res.render('./admins/problems', { problems });
   });
 
   router.get('/testcases', async (req, res) => {
-    res.render('./admins/testcases');
+    const testcases = await db.Testcase.find({}).populate('problemId');
+    const problems = await db.Problem.find({});
+
+    res.render('./admins/testcases', { testcases, problems });
   });
 
   app.use('/admins', router);

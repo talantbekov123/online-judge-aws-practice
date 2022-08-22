@@ -12,6 +12,10 @@ const TestcaseSchema = new Schema(
     expectedOutput: {
       type: Object,
       required: true
+    },
+    problemId: {
+      ref: 'Problem',
+      type: Schema.Types.ObjectId
     }
   },
   {

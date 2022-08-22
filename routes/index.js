@@ -6,14 +6,6 @@ const router = express.Router();
 const { generateFile } = require('../helpers/generateFile');
 
 module.exports = (app) => {
-  router.get('/problems', async (req, res) => {
-    res.render('problems');
-  });
-
-  router.get('/problems/:dasdsa', async (req, res) => {
-    res.render('single-problem');
-  });
-
   router.post('/run', async (req, res) => {
     const { language = 'js', code, input = [] } = req.body;
     if (code === undefined) {

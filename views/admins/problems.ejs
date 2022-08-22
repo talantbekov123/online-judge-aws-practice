@@ -26,21 +26,62 @@
             <div class="text-center text-medium m-b-0">
                 ONLINE JUDGE
             </div>
-            
+
         </section>
 
         <%- include('../components/navigation.ejs', {path: '../' }); %>
 
-        <header id="header">
-            <div class="header-inner">
-                <div class="container">
-                    <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines"></span></a> </div>
+        <section id="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="content col-lg-9">
+                        <form action="/problems" method="POST">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Title" type="text" name="title">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Difficulty</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Title" type="text" name="difficulty">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="10" cols="10" name="description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn">Create problem</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar col-lg-3">
+                        <div class="sidebar-menu">
+                            <ul>
+                                <label>Problems list</label>
+                                <% for(let i = 0; i < problems.length; i++) { %>
+                                    <li>
+                                        <a style="float: left; padding-right: 10px;" href="/"><%= problems[i].title %></a>
+                                        <form  method="POST" action="/problems/<%=problems[i]._id%>?_method=DELETE">
+                                            <button class="btn btn-xs" type="submit">delete</button>
+                                        </form>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
+        </section>
 
 
-     
 
         <footer id="footer">
             <div class="footer-content p-t-10">
@@ -58,7 +99,7 @@
     <a id="scrollTop" class="scroll-to" href="body.html"><i class="icon-chevron-up"></i><i
             class="icon-chevron-up"></i></a>
 
-    
+
 </body>
 
 </html>

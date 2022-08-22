@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const ProblemSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true
     },
@@ -15,10 +15,6 @@ const ProblemSchema = new Schema(
     difficulty: {
       type: String,
       required: true
-    },
-    testcases: {
-      type: [{ type: Schema.Types.ObjectId, ref: 'Testcase' }],
-      default: []
     }
   },
   {
