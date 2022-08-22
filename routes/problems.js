@@ -32,8 +32,14 @@ module.exports = (app, db) => {
     res.render('problems', { problems });
   });
 
-  router.get('/:dasdsa', async (req, res) => {
-    res.render('single-problem');
+  router.get('/:_id', async (req, res) => {
+    const problem = await db.Problem.findOne({ _id: req.params._id });
+    const testcases = await db.Testcase.find({ problemId: req.params._id });
+    const submissions = await db.Submission.find({ problemId: req.params._id });
+
+    console.log(submissions);
+
+    res.render('single-problem', { problem, testcases, submissions });
   });
 
   app.use('/problems', router);

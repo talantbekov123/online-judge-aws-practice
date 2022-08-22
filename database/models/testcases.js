@@ -16,6 +16,11 @@ const TestcaseSchema = new Schema(
     problemId: {
       ref: 'Problem',
       type: Schema.Types.ObjectId
+    },
+    verdict: {
+      type: Number,
+      required: false,
+      default: -1
     }
   },
   {

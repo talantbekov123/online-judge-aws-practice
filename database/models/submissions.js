@@ -4,9 +4,16 @@ const { Schema } = mongoose;
 
 const SubmissionSchema = new Schema(
   {
-    code: {
+    codeFilepath: {
       type: String,
       required: true
+    },
+    problemId: {
+      ref: 'Problem',
+      type: Schema.Types.ObjectId
+    },
+    testCaseResult: {
+      type: [Object]
     }
   },
   {

@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3>Description</h3>
+                        <h3>Problem: <%= problem.title %></h3>
                         <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                             ex ea commodo consequat. Duis aute irure dolor in reprehende.
@@ -48,10 +48,17 @@
                         <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
                             sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
                             voluptatem.</p>
+                        <hr/>
+                        <h3>Submissions</h3>
+                        <% for(let i = 0; i < submissions.length; i++) { %>
+                            <a href="#"><%= submissions[i]._id %></a> (verdict)
+                        <% } %>
+
                     </div>
                     <div class="col-lg-6">
                         <form method="POST" action="/run" id="codeEditorForm">
                             <h3>Code editor</h3>
+                            <input type="hidden" value="<%= problem._id %>" name="problemId">
                             <div class="form-group">
                                 <textarea id="codeEditorTextarea" name="code" class="form-control"
                                     id="exampleFormControlTextarea1" rows="15"></textarea>

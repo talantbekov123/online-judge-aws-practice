@@ -3,8 +3,13 @@ const router = express.Router();
 
 module.exports = (app, db) => {
   router.post('/', async (req, res) => {
+    let { inputArgs } = req.body;
+    inputArgs = inputArgs.slice(1, -1);
+    inputArgs = inputArgs.split(',');
+    inputArgs = inputArgs.map((elem) => elem.trim());
+
     const instance = {
-      inputArgs: req.body.inputArgs,
+      inputArgs,
       expectedOutput: req.body.expectedOutput,
       problemId: req.body.problemId
     };
