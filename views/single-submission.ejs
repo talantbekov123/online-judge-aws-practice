@@ -52,7 +52,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Testcase</th>
+                                    <th scope="col">Testcase (input)</th>
                                     <th scope="col">Expected output</th>
                                     <th scope="col">Actual output</th>
                                     <th scope="col">Verdict</th>
@@ -63,10 +63,14 @@
                                 <% for(let i = 0; i < submission.testCaseResult.length; i++) { %>
                                     <tr>
                                         <th scope="row"><%= i + 1 %></th>
-                                        <th scope="row"><%= i + 1 %></th>
-                                        <th scope="row"><%= i + 1 %></th>
-                                        <th scope="row"><%= i + 1 %></th>
-                                        <th scope="row"><%= i + 1 %></th>
+                                        <th scope="row"><%= submission.testCaseResult[i].inputArgs %></th>
+                                        <th scope="row"><%- submission.testCaseResult[i].expectedOutput %></th>
+                                        <th scope="row"><%- submission.testCaseResult[i].expectedOutput %></th>
+                                        <% if(submission.verdict == 1) { %>
+                                            <th scope="row"><span style="color: green;">Accepted</span></th>
+                                        <% } else { %>
+                                            <th scope="row"><span style="color: red;"></span></th>
+                                        <% } %>
                                     </tr>
                                 <% } %>
                             </tbody>

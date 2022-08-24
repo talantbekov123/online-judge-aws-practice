@@ -28,6 +28,7 @@ module.exports = (app, db) => {
       let countAcceptedTestcases = 0;
       for await (const testcase of testcases) {
         const responce = fn(...testcase.inputArgs);
+        testcase.output = responce;
 
         if (responce === testcase.expectedOutput) {
           countAcceptedTestcases += 1;

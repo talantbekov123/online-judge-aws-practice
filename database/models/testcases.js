@@ -21,6 +21,10 @@ const TestcaseSchema = new Schema(
       type: Number,
       required: false,
       default: -1
+    },
+    output: {
+      type: Object,
+      default: null
     }
   },
   {
