@@ -6,7 +6,7 @@ module.exports = (app, db) => {
     const instance = {
       title: req.body.title,
       description: req.body.description,
-      difficulty: req.body.description
+      difficulty: req.body.difficulty
     };
 
     try {
